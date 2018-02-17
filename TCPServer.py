@@ -1,29 +1,30 @@
 
-import time
 import threading
 import socket
 
 def client_handler(client):
     while True:
-        data = client.recv(4096)
+        data = client.recv(1024)
 
-        if len(data) == 0:
+        if not data:
             break
 
-        print("[+] data:", data)
+        print "[+] data: %s" % data 
 
 def main(HOST, PORT):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((HOST, PORT))
 
-    sock.listen(10)
+    sock.listen(4)
 
     while True:
         client, addr = sock.accept()
-        print("[+] Connection with", addr)
+        print "[+] Connection with %s" % addr
 
         t = threading.Thread(target=client_handler, args=(client,))
         t.start()
 
+    sock.close()
+
 if __name__ == '__main__':
-    main('localhost', 8080)
+    main('localhost', 8000)
