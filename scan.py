@@ -13,9 +13,12 @@ class ScanDelegate(DefaultDelegate):
 		"""
 
 scanner = Scanner().withDelegate(ScanDelegate())
-devices=scanner.scan(10.0)
+while True:
+	devices=scanner.scan(0.1)
 
-for dev in devices:
-	print "Device %s (%s), RSSI=%d dB" % (dev.addr,dev.addrType,dev.rssi)
-	for (adtype,desc,value) in dev.getScanData():
-		print " %s = %s" % (desc,value) 
+	for dev in devices:
+		if dev.addr == "EF:CD:C9:EA:16:6C".lower():
+			print "RSSI: %s" % dev.rssi
+#			print "Device %s (%s), RSSI=%d dB" % (dev.addr,dev.addrType,dev.rssi)
+#			for (adtype,desc,value) in dev.getScanData():
+#				print " %s = %s" % (desc,value) 
