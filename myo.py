@@ -5,20 +5,20 @@ class myo(object):
     myohw_command_t = 0x0019
     battery_handle=0x0011
 
-    def __init(self, peripheral):
+    def __init__(self, peripheral):
         """
         The user must input their own peripheral (e.g. bluepy.btle.Preipheral(`MAC_Adress`))
         The battery is set to None by default and is calculated by a property method
         """
         self.peripheral = peripheral
-        self.battery = None
+
 
     @property
     def battery(self):
 	    """
 	    returns the battery level of the myo
 	    """
-	    return int(self.peripheral.readCharacteristic(myo.battery_handle))
+	    return ord(self.peripheral.readCharacteristic(myo.battery_handle))
 
     def vibrate(self,length):
 	    """
