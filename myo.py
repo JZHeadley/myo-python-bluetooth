@@ -1,12 +1,15 @@
 
-from bluepy import btle
-
 class myo(object):
 
+    # Static variables of the myohw header file
     myohw_command_t = 0x0019
     battery_handle=0x0011
 
     def __init(self, peripheral):
+        """
+        The user must input their own peripheral (e.g. bluepy.btle.Preipheral(`MAC_Adress`))
+        The battery is set to None by default and is calculated by a property method
+        """
         self.peripheral = peripheral
         self.battery = None
 
@@ -42,6 +45,8 @@ class myo(object):
 
 
 if __name__ == '__main__':
+    from bluepy import btle
+
     per = btle.Peripheral("EF:CD:C9:EA:16:6C")
     m = myo(per)
     m.vibrate(3)
