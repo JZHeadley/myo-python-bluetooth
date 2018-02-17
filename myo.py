@@ -18,7 +18,7 @@ class myo(object):
 	    """
 	    returns the battery level of the myo
 	    """
-	    return self.peripheral.readCharacteristic(myo.battery_handle)
+	    return int(self.peripheral.readCharacteristic(myo.battery_handle))
 
     def vibrate(self,length):
 	    """
