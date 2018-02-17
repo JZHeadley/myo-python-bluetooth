@@ -20,6 +20,13 @@ class myo(object):
 	    """
 	    return ord(self.peripheral.readCharacteristic(myo.battery_handle))
 
+    @property
+    def firmware_version(self):
+	"""
+	returns the current version of the firmware on the myo
+	"""
+	print self.peripheral.readCharacteristic(0x17)    
+
     def vibrate(self,length):
 	    """
 	    makes the given peripheral vibrate short medium or long period of time
@@ -51,3 +58,4 @@ if __name__ == '__main__':
     m = myo(per)
     m.vibrate(3)
     print(m.battery)
+    m.firmware_version()
