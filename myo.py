@@ -45,5 +45,5 @@ if __name__ == '__main__':
     per = btle.Peripheral("EF:CD:C9:EA:16:6C")
     m = myo(per)
     m.vibrate(3)
-    print(m.battery())
+    print(m.battery
     
