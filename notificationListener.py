@@ -6,18 +6,19 @@ from TCPClient import TCPNode
 from myo import myo
 
 NODE_NUMBER = 0
-SERVER_IP = "localhost"
+SERVER_IP = "172.29.61.75"
 
 onArm = 0
 per=btle.Peripheral("EF:CD:C9:EA:16:6C")
 myMyo = myo(per)
 def vibrate():
-	myMyo.vibrate(3)
+	print "server vibrate"	
+	myMyo.vibrate(1)
 
 
 client = TCPNode(NODE_NUMBER, vibrate)
 client.connect(SERVER_IP,8000)
-
+client.send(onArm,213)
 class ScanDelegate(btle.DefaultDelegate):
 	def __init__(self):
 		btle.DefaultDelegate.__init__(self)
@@ -58,6 +59,7 @@ class MyDelegate(btle.DefaultDelegate):
 				onArm = 2
 				client.send(onArm,get_rssi())							
 		else:
+			onArm = 0
 			print (data)
 
 
