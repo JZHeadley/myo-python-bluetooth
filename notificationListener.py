@@ -5,16 +5,20 @@ import os
 from TCPClient import TCPNode
 from myo import myo
 import time
+
 stat_count = 0
 onArm = 0
+per=btle.Peripheral()
 
 def main():
 	global onArm
-	NODE_NUMBER = 4
+	NODE_NUMBER = 1
 	SERVER_IP = "172.29.61.75"
 	
+	per.connect("EF:CD:C9:EA:16:6C")
+	while per.addr is not None:
+		per.connect("EF:CD:C9:EA:16:6C")
 	
-	per=btle.Peripheral("EF:CD:C9:EA:16:6C")
 	def print_stat(msg):
 		global stat_count
 		global onArm
@@ -72,7 +76,7 @@ def main():
 					onArm = 2
 					client.send(onArm,get_rssi())
 				
-				print_stat("Pose detected: " + typ)
+				print_stat("Pose detected: " + str(typ))
 							
 			else:
 				onArm = 0
@@ -138,7 +142,9 @@ if __name__ == "__main__":
 		try:
 			main()
 		except Exception as e:
+			per.disconnect()
 			print "Main exception! ", e
+			per.disconnect()
 			time.sleep(1)
 
 
