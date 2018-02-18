@@ -5,7 +5,7 @@ import os
 from TCPClient import TCPNode
 from myo import myo
 
-NODE_NUMBER = 0
+NODE_NUMBER = 1
 SERVER_IP = "172.29.61.75"
 
 onArm = 0
