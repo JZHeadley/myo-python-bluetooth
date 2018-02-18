@@ -10,7 +10,7 @@ onArm = 0
 
 def main():
 	global onArm
-	NODE_NUMBER = 1
+	NODE_NUMBER = 4
 	SERVER_IP = "172.29.61.75"
 	
 	
