@@ -29,6 +29,7 @@ class MyDelegate(btle.DefaultDelegate):
 		btle.DefaultDelegate.__init__(self)
 
 	def handleNotification(self,cHandle,data):
+		global onArm
 		print "Handle: %x" % cHandle
 		if cHandle == 28:
 			vals = unpack('10h',data)
@@ -40,7 +41,7 @@ class MyDelegate(btle.DefaultDelegate):
 			print acc #"acc %i" % acc
 			print gyro #"gyro %i" % gyro
 		elif cHandle == 0x23:
-			myMyo.vibrate(1)
+			
 			print "Pose detected"
 			typ,val,xdir =unpack('3h',data)
 			#print len(data)
@@ -48,14 +49,14 @@ class MyDelegate(btle.DefaultDelegate):
 			#print typ
 			
 			if typ ==1:
+				print("hit this")
 				onArm = 0
-				client.send(0,get_rssi())
+				client.send(onArm,get_rssi())
 				
 			elif typ == 2:
 				print "Not On Arm"
 				onArm = 2
-				client.send(onArm,get_rssi())
-								
+				client.send(onArm,get_rssi())							
 		else:
 			print (data)
 
@@ -96,16 +97,18 @@ per.writeCharacteristic(0x28,bytearray([02,00]))
 per.writeCharacteristic(0x19,bytearray([01,03,00,00,00]))
 per.writeCharacteristic(0x19,bytearray([01,03,00,00,01]))
 
-C=1000
-emg_hz=50
-emg_smooth=100
-imu_hz=50
+#C=1000
+#emg_hz=50
+#emg_smooth=100
+#imu_hz=50
 
 while True:
-	devices = scanner.scan()
+	#print "outside"	
+	client.send(onArm,get_rssi())
+	#devices = scanner.scan()
 	if per.waitForNotifications(1.0):
 		print "Handling Notif..."
-		for dev in devices:
-			print("found Device "+dev.addr)
-			client.send(onArm,get_rssi())
+		#for dev in devices:
+		#	print("found Device "+dev.addr)
+		#	client.send(onArm,get_rssi())
 			
