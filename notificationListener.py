@@ -18,6 +18,12 @@ def vibrate():
 client = TCPNode(NODE_NUMBER, vibrate)
 client.connect(SERVER_IP,8000)
 
+class ScanDelegate(btle.DefaultDelegate):
+	def __init__(self):
+		btle.DefaultDelegate.__init__(self)
+	def handleDiscovery(seld,dev,isNewDev,isNewData):
+		pass
+
 class MyDelegate(btle.DefaultDelegate):
 	def __init__(self,params):
 		btle.DefaultDelegate.__init__(self)
@@ -54,7 +60,7 @@ class MyDelegate(btle.DefaultDelegate):
 			print (data)
 
 
-scanner = btle.Scanner().withDelegate(MyDelegate(None))
+scanner = btle.Scanner().withDelegate(ScanDelegate())
 per.withDelegate(MyDelegate(None))
 
 queue = []
@@ -96,9 +102,10 @@ emg_smooth=100
 imu_hz=50
 
 while True:
+	devices = scanner.scan()
 	if per.waitForNotifications(1.0):
 		print "Handling Notif..."
-		
-		print("found Device "+per.rssi)
-		client.send(onArm,get_rssi())
+		for dev in devices:
+			print("found Device "+dev.addr)
+			client.send(onArm,get_rssi())
 			
