@@ -16,7 +16,6 @@ def main():
 	SERVER_IP = "172.29.61.75"
 	
 	per.connect("EF:CD:C9:EA:16:6C")
-	print(per.addr)
 	while per.addr is None:
 		per.connect("EF:CD:C9:EA:16:6C")
 	
