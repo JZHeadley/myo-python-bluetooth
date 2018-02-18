@@ -11,7 +11,7 @@ per=btle.Peripheral("EF:CD:C9:EA:16:6C")
 def main():
 	global per
 	global onArm
-	NODE_NUMBER = 1
+	NODE_NUMBER = 4
 	SERVER_IP = "172.29.61.75"
 
 	
