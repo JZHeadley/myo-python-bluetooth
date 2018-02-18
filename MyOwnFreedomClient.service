@@ -1,0 +1,13 @@
+[Unit]
+Description=The client service for MyOwn Freedom
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/myo-python-bluetooth
+ExecStart=/usr/bin/python /home/pi/myo-python-bluetooth/notificationListener.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
