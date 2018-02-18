@@ -7,14 +7,14 @@ from myo import myo
 import time
 stat_count = 0
 onArm = 0
-per=btle.Peripheral("EF:CD:C9:EA:16:6C")
+
 def main():
-	global per
 	global onArm
 	NODE_NUMBER = 1
 	SERVER_IP = "172.29.61.75"
-
 	
+	
+	per=btle.Peripheral("EF:CD:C9:EA:16:6C")
 	def print_stat(msg):
 		global stat_count
 		global onArm
@@ -72,7 +72,7 @@ def main():
 					onArm = 2
 					client.send(onArm,get_rssi())
 				
-				print_stat("Pose detected")
+				print_stat("Pose detected: " + typ)
 							
 			else:
 				onArm = 0
